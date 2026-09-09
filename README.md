@@ -8,8 +8,6 @@ The app serves a single page displaying:
 
 > Hello TechCrush Cohort 8 with Tutor Yushua Akande
 
-It also exposes a `/health` endpoint returning `{ "status": "ok" }`.
-
 - **GitHub repo:** https://github.com/kendrickchibueze/Node_Docker_Container_App
 - **Docker Hub image:** [kendrickchibueze/nodejs-app:1.0](https://github.com/kendrickchibueze/Node-Docker_EC2-Screenshots/blob/main/Image%20on%20DockerHub.png?raw=true)
 - **Deployed on:** AWS EC2, Amazon Linux 2023 (t3.micro)
