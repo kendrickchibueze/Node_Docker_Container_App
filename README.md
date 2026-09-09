@@ -1,93 +1,117 @@
-# nodejs-app
+# Node.js & Docker Deployment Assignment
 
-A simple Node.js (Express) web app built for the **Node.js & Docker Deployment Assignment** (TechCrush Cohort 8, Tutor Yushua Akande). The app serves a single page displaying:
+**TechCrush Cohort 8 — Tutor: Yushua Akande**
+
+A simple Node.js (Express) web app, containerized with Docker, deployed to an AWS EC2 (Linux) server, and pushed/pulled through Docker Hub, per the assignment objective: *build and deploy a Node.js application using GitHub, AWS(EC2 Linux Server), Docker, and Docker Hub.*
+
+The app serves a single page displaying:
 
 > Hello TechCrush Cohort 8 with Tutor Yushua Akande
 
 It also exposes a `/health` endpoint returning `{ "status": "ok" }`.
 
-## Prerequisites
+- **GitHub repo:** https://github.com/kendrickchibueze/Node_Docker_Container_App
+- **Docker Hub image:** [kendrickchibueze/nodejs-app:1.0](https://github.com/kendrickchibueze/Node-Docker_EC2-Screenshots/blob/main/Image%20on%20DockerHub.png?raw=true)
+- **Deployed on:** AWS EC2, Amazon Linux 2023 (t3.micro)
 
-- [Node.js](https://nodejs.org/) (v18+) and npm, for local runs
-- [Docker](https://www.docker.com/) installed on your Linux server (e.g. an EC2 instance)
-- A [Docker Hub](https://hub.docker.com/) account
-- A GitHub repository to host this code
+## Project files
 
-Replace `your-dockerhub-username` in every command below with your actual Docker Hub username.
+- [`app.js`](./app.js) — Express server
+- [`package.json`](./package.json) — dependencies and start script
+- [`Dockerfile`](./Dockerfile) — container build instructions
+- [`.dockerignore`](./.dockerignore) — files excluded from the Docker build context
 
-## 1. Run locally
+## How it was built and deployed
 
-```bash
-npm install
-npm start
-```
+### 1. Generate the application
 
-Visit `http://localhost:3000` in your browser.
+The app was scaffolded with AI assistance (Claude) — a minimal Express server with a single route.
 
-## 2. Push to GitHub
+### 2. Push to GitHub
 
 ```bash
 git init
 git add .
 git commit -m "Initial commit: Node.js app for Docker deployment assignment"
 git branch -M main
-git remote add origin https://github.com/<your-github-username>/nodejs-app.git
+git remote add origin https://github.com/kendrickchibueze/Node_Docker_Container_App.git
 git push -u origin main
 ```
 
-## 3. Clone onto your Linux server (EC2)
+
+### Configure inbound rules on Ec2 Instance for port 3000
+["inbound rule configuration](https://github.com/kendrickchibueze/Node-Docker_EC2-Screenshots/blob/main/EC2_Inbound_Rule.png?raw=true)
+
+### 3. Clone onto the Linux server (AWS EC2)
+
+Connected to the EC2 instance (Amazon Linux 2023) via EC2 Instance Connect, then:
 
 ```bash
-ssh your-user@your-ec2-public-ip
-git clone https://github.com/<your-github-username>/nodejs-app.git
-cd nodejs-app
+git clone https://github.com/kendrickchibueze/Node_Docker_Container_App.git
+cd Node_Docker_Container_App
 ```
 
-## 4. Build the Docker image
+### 4. Dockerfile
+
+See ![Dockerfile](./Dockerfile) — builds from `node:20-alpine`, installs production dependencies, and runs `node app.js` on port 3000.
+
+### We clone the Github repo in our Ec2 instance 
+![git cone](https://github.com/kendrickchibueze/Node-Docker_EC2-Screenshots/blob/main/Ec2_GitClone.png?raw=true)
+
+### 5. Build the Docker image
 
 ```bash
-docker build -t your-dockerhub-username/nodejs-app:1.0 .
+docker build -t kendrickchibueze/nodejs-app:1.0 .
 ```
 
-### 📸 Screenshot: Docker build command
+#### 📸 Screenshot: Docker build command and successful output
 
-![Docker build command and successful output](./screenshots/docker-build.png)
+![Docker build command and successful output](https://github.com/kendrickchibueze/Node-Docker_EC2-Screenshots/blob/main/EC2-Imagebuil1.png?raw=true)
+![](https://github.com/kendrickchibueze/Node-Docker_EC2-Screenshots/blob/main/Ec2-Imagebuid2.png?raw=true)
 
-## 5. Push the image to Docker Hub
+### 6. Push the image to Docker Hub
 
 ```bash
 docker login
-docker push your-dockerhub-username/nodejs-app:1.0
+docker push kendrickchibueze/nodejs-app:1.0
 ```
 
-### 📸 Screenshot: Docker Hub image
+#### 📸 Screenshot: Docker Hub repository showing the image and tag
 
-![Docker image visible on Docker Hub](./screenshots/dockerhub-image.png)
+![Docker image visible on Docker Hub](https://github.com/kendrickchibueze/Node-Docker_EC2-Screenshots/blob/main/Image%20on%20DockerHub.png?raw=true)
 
-## 6. Pull and run the image
+### 7. Pull the image from Docker Hub
 
 ```bash
-docker pull your-dockerhub-username/nodejs-app:1.0
-docker run -d -p 3000:3000 your-dockerhub-username/nodejs-app:1.0
+docker pull kendrickchibueze/nodejs-app:1.0
+```
+
+### 8. Run the container
+
+```bash
+docker run -d -p 3000:3000 kendrickchibueze/nodejs-app:1.0
 docker ps
 ```
 
-### 📸 Screenshot: Running container
+#### 📸 Screenshot: Running container at the EC2 Linux Server (`docker ps`)
 
-![docker ps showing the running container](./screenshots/docker-ps.png)
+![docker ps showing the running container](https://github.com/kendrickchibueze/Node-Docker_EC2-Screenshots/blob/main/Ec2_docker-runningcontainer.png?raw=true)
 
-## 7. View the live application
+### Live application
 
-Visit `http://your-ec2-public-ip:3000` (make sure port 3000 is open in your EC2 security group).
+The EC2 instance's security group was opened on port 3000, and the app is reachable at its public IP.
 
-### 📸 Screenshot: Live application
+#### 📸 Screenshot: Live application running
 
-![Live application running in the browser](./screenshots/live-app.png)
+![Live application running in the browser](https://github.com/kendrickchibueze/Node-Docker_EC2-Screenshots/blob/main/EC2-Instance-Output.png?raw=true)
 
-## Project files
+## Submission checklist
 
-- `app.js` — Express server
-- `package.json` — dependencies and start script
-- `Dockerfile` — container build instructions
-- `.dockerignore` — files excluded from the Docker build context
-- `screenshots/` — assignment screenshots referenced above
+- [x] Node.js application source code
+- [x] `package.json`
+- [x] `Dockerfile`
+- [x] `README.md`
+- [x] Screenshot of the Docker image build
+- [x] Screenshot of the image on Docker Hub
+- [x] Screenshot of the running Docker container
+- [x] Screenshot of the live application
