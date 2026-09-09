@@ -51,7 +51,7 @@ cd Node_Docker_Container_App
 
 ### 4. Dockerfile
 
-See ![Dockerfile](./Dockerfile) — builds from `node:20-alpine`, installs production dependencies, and runs `node app.js` on port 3000.
+See ![Dockerfile](https://github.com/kendrickchibueze/Node-Docker_EC2-Screenshots/blob/main/dockericon.png?raw=true) — builds from `node:20-alpine`, installs production dependencies, and runs `node app.js` on port 3000.
 
 ### We clone the Github repo in our Ec2 instance 
 ![git cone](https://github.com/kendrickchibueze/Node-Docker_EC2-Screenshots/blob/main/Ec2_GitClone.png?raw=true)
