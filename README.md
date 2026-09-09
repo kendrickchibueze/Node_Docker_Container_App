@@ -39,8 +39,8 @@ git push -u origin main
 ```
 
 
-### Configure inbound rules on Ec2 Instance for port 3000
-["inbound rule configuration](https://github.com/kendrickchibueze/Node-Docker_EC2-Screenshots/blob/main/EC2_Inbound_Rule.png?raw=true)
+### Configure inbound rules on Ec2 Instance for port 3000:
+![Inbound rule configuration on EC2 Instance](https://github.com/kendrickchibueze/Node-Docker_EC2-Screenshots/blob/main/EC2_Inbound_Rule.png?raw=true)
 
 ### 3. Clone onto the Linux server (AWS EC2)
 
@@ -86,7 +86,7 @@ docker push kendrickchibueze/nodejs-app:1.0
 docker pull kendrickchibueze/nodejs-app:1.0
 ```
 
-### 8. Run the container
+### 8. Run the container on EC2 Linux Server
 
 ```bash
 docker run -d -p 3000:3000 kendrickchibueze/nodejs-app:1.0
@@ -104,6 +104,24 @@ The EC2 instance's security group was opened on port 3000, and the app is reacha
 #### 📸 Screenshot: Live application running
 
 ![Live application running in the browser](https://github.com/kendrickchibueze/Node-Docker_EC2-Screenshots/blob/main/EC2-Instance-Output.png?raw=true)
+
+### Now, Using Docker Desktop Produces the same output:
+
+### We pull the image from docker desktop:
+![using docker desktop](https://github.com/kendrickchibueze/Node-Docker_EC2-Screenshots/blob/main/docker-dektop%20pulling%20image.png?raw=true)
+
+
+#### 📸 Screenshot: Running container using docker desktop
+
+![docker desktop showing the running container](https://github.com/kendrickchibueze/Node-Docker_EC2-Screenshots/blob/main/container%20running%20on%20docker%20desktop.png?raw=true)
+
+### Live application
+
+The docker desktop runs the application on localhost and opens on port 3000
+
+#### 📸 Screenshot: Live application running
+
+![Live application running in the browser](https://github.com/kendrickchibueze/Node-Docker_EC2-Screenshots/blob/main/Output_docker-run.png?raw=true)
 
 ## Submission checklist
 
