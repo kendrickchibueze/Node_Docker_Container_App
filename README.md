@@ -1,4 +1,4 @@
-# Node.js & Docker Deployment Assignment
+# Node.js & Docker Deployment Assignment 🤷‍♂️😊✔🎗👓
 
 **TechCrush Cohort 8 — Tutor: Yushua Akande**
 
